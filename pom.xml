@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>DemoPipelineJava</groupId>
   <artifactId>DemoPipelineJava</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>war</packaging>
   <dependencies>
   	<dependency>
@@ -30,13 +30,35 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.1</version>  
+      </plugin>
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.1</version>
+        <executions>
+          <execution>
+            <id>default-deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <serverId>nexus</serverId>
+          <nexusUrl>http://34.207.91.170:8081/nexus/</nexusUrl>
+          <skipStaging>true</skipStaging>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <distributionManagement>
-<repository>
-<id>my-repo</id>
-<name>my-repo</name>
-<url>http://3.87.32.168:8081/repository/my-repo/</url>
-</repository>
-</distributionManagement>
+    <snapshotRepository>
+      <id>nexus</id>
+      <url>http://34.207.91.170:8081/repository/maven-snapshots/ </url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
